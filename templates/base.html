@@ -1,0 +1,17 @@
+{% load static %}<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}مساحة التفتيش{% endblock %} | Inspector_Website_002</title>
+<meta name="description" content="مساحة عمل المفتش لإدارة الزيارات والمراجع والأدلة والتكليفات.">
+<link rel="icon" href="{% static 'favicon.svg' %}" type="image/svg+xml"><link rel="stylesheet" href="{% static 'app.css' %}">
+<script src="{% static 'app.js' %}" defer></script></head>
+<body><a class="skip" href="#main">انتقل إلى المحتوى</a>
+{% if user.is_authenticated %}
+<aside class="sidebar"><a class="brand" href="{% url 'dashboard' %}"><img src="{% static 'favicon.svg' %}" width="42" height="42" alt=""><span>مساحة التفتيش<small>التكوين والتعليم المهنيين</small></span></a>
+<div class="nav-label">مساحة العمل</div>{% include 'partials/navigation.html' %}
+<div class="sidebar-bottom"><span class="avatar">{{ user.username|first|upper }}</span><div>{{ user.get_full_name|default:user.username }}<small>{{ user.get_role_display }}</small></div></div></aside>
+<div class="workspace"><header class="topbar"><div class="mobile-brand">مساحة التفتيش</div><span class="desktop-meta">منصة إدارة الزيارات التفتيشية</span><div class="topbar-actions"><span class="role-tag">{{ user.get_role_display }}</span><form method="post" action="{% url 'logout' %}">{% csrf_token %}<button class="text-button" type="submit">خروج</button></form></div></header>
+<details class="mobile-menu"><summary>القائمة ومساحات العمل</summary>{% include 'partials/navigation.html' %}</details>
+{% else %}<div class="login-shell">{% endif %}
+<main id="main">{% if messages %}<div class="messages" aria-live="polite">{% for message in messages %}<div class="message {{ message.tags }}">{{ message }}</div>{% endfor %}</div>{% endif %}
+{% block content %}{% endblock %}</main>
+{% if user.is_authenticated %}<footer>مساحة التفتيش <span>الزيارات · المراجع · المتابعة</span></footer>{% endif %}</div></body></html>

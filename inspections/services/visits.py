@@ -79,7 +79,7 @@ def scope_rows(visit, all_nodes=False):
     while stack:
         n, depth = stack.pop()
         if all_nodes or n.stable_id in wanted:
-            rows.append({'node': n, 'depth': min(depth, 5), 'context': not n.selected,
+            rows.append({'node': n, 'depth': min(depth, 5), 'context': not n.selected and n.stable_id in wanted,
                 'effective': effective[n.pk], 'done': is_done(n)})
         stack.extend((child, depth + 1) for child in reversed(children.get(n.stable_id, [])))
     return rows

@@ -1,0 +1,6 @@
+{
+  "name": "inspector-website-002-layout-qa",
+  "private": true,
+  "description": "Optional supervised browser QA only. The application itself runs with Python and Django.",
+  "scripts": {"dev": "python3 tools/serve_qa.py"}
+}

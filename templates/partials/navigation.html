@@ -1,0 +1,7 @@
+<nav aria-label="مساحات العمل">
+<a class="{% if request.path == '/' or '/visits/' in request.path %}current{% endif %}" href="{% url 'dashboard' %}"><span class="nav-icon">▤</span>الزيارات</a>
+<a class="{% if '/institutions/' in request.path %}current{% endif %}" href="{% url 'institutions' %}"><span class="nav-icon">▦</span>المؤسسات</a>
+<a class="{% if '/references/' in request.path %}current{% endif %}" href="{% url 'references' %}"><span class="nav-icon">▥</span>المراجع</a>
+<a class="{% if '/guides/' in request.path %}current{% endif %}" href="{% url 'guides' %}"><span class="nav-icon">◈</span>الأدلة الاختيارية</a>
+<a class="{% if '/assignments/' in request.path %}current{% endif %}" href="{% url 'assignments' %}"><span class="nav-icon">▣</span>التكليفات الرسمية</a>
+<a class="{% if '/submissions/' in request.path %}current{% endif %}" href="{% url 'submissions' %}"><span class="nav-icon">◇</span>مقترحات التعميم</a></nav>
