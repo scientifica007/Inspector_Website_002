@@ -1,0 +1,3 @@
+{% extends 'base.html' %}{% load static %}{% block title %}تسجيل الدخول{% endblock %}{% block content %}
+<section class="login-card"><img src="{% static 'favicon.svg' %}" width="56" height="56" alt=""><p class="eyebrow">التكوين والتعليم المهنيين</p><h1>مساحة التفتيش</h1><p class="muted">سجّل الدخول إلى مساحة عملك.</p>
+<form method="post">{% csrf_token %}{% include 'partials/fields.html' %}{% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}<button class="button primary full" type="submit">تسجيل الدخول</button></form></section>{% endblock %}
