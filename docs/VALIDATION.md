@@ -11,6 +11,7 @@
 | `2cde42ea071b8c4546b33946a0204ca92c240914` | المراجع واللقطات والزيارات والنطاق الانتقائي |
 | `4ba34b5635583ac9827d94a15b1cc95c69a33432` | الأدلة والتكليفات والتداخل والإلغاء وحراس التاريخ |
 | `c232e86ae2b80b9955c3fe9c032bfcd5d86674ea` | الواجهة العربية وبيانات التجربة واختبارات HTTP |
+| `7b286d9fefe1b9622a433d7fda0dfed9b9a662c0` | التوثيق، إنشاء حساب مفتش، وأدلة فحص الحاسوب والهاتف |
 
 قراءة GitHub الفعلية لـCI عند `c232e86`: وظيفتا SQLite وPostgreSQL ناجحتان، وتشملان 56 اختبارًا.
 [تشغيل GitHub Actions المثبت](https://github.com/scientifica007/Inspector_Website_002/actions/runs/35522169812).
@@ -63,7 +64,20 @@
 
 [لقطة تنفيذ الزيارة بعرض الهاتف](evidence/mobile-execution.jpg).
 
-## البوابات المتبقية عند تسجيل هذه المرحلة
+## التشغيل من clean clone وقراءة GitHub
 
-إعادة التشغيل من clean clone، وقراءة CI للـcommit الذي يتضمن التوثيق وأمر إنشاء المفتش، وإنشاء Draft PR.
-تُحدّث نتائج هذه البوابات بعد التنفيذ الفعلي. اختبار المستخدم وفق [HUMAN_ACCEPTANCE.md](HUMAN_ACCEPTANCE.md) ما يزال Pending.
+استُنسخ الفرع من GitHub عند `7b286d9` في مجلد مستقل، وأُنشئت بيئة Python 3.12 جديدة وقاعدة SQLite فارغة.
+ثُبتت التبعيات من requirements.txt، ثم نجحت migrations وفحوص check وmakemigrations والاختبارات الـ58 وcollectstatic.
+بقي `git status --short` فارغًا. لم تُنسخ قاعدة التطوير أو البيئة الافتراضية القديمة، ولم يُشغّل Seed.
+أثبت فحص إضافي أن الجداول فارغة، وأن صفحة الدخول تعمل وأن مساحة العمل تطلب المصادقة.
+نجح أيضًا `check --deploy` مع DEBUG=0 ومفتاح اختبار عشوائي واسم خادم مضبوط.
+
+قُرئ [CI عند 7b286d9](https://github.com/scientifica007/Inspector_Website_002/actions/runs/35564694829) بعد انتهائه:
+SQLite وPostgreSQL كلاهما **success**. هذا هو خط أساس كود التطبيق؛ التحديث اللاحق لهذا الملف توثيقي فقط.
+
+أُنشئ [Draft PR رقم 1](https://github.com/scientifica007/Inspector_Website_002/pull/1) إلى main.
+يبقى Draft دون دمج أو تحويل إلى Ready for Review. أساس main المحفوظ `ff957b5a10a3d7dd20dea8b406e4cdc7a6da05ba`.
+حالة CI عند أحدث commit تُقرأ من checks الخاصة بالـPR؛ لا يستنتج نجاح تشغيل جارٍ من نجاح تشغيل سابق.
+
+المتبقي: اختبار المستخدم وفق [HUMAN_ACCEPTANCE.md](HUMAN_ACCEPTANCE.md)، وحالته **Pending**.
+لا توجد بيئة Django منشورة للعامة ضمن هذا التسليم؛ خطوات التشغيل المحلي وLAN والنشر التقليدي موثقة في README.
