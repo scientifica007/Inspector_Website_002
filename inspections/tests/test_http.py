@@ -11,6 +11,17 @@ from .base import DomainCase
 
 
 class HttpWorkflowTests(DomainCase):
+    def test_login_form_accepts_correct_password_rejects_wrong_and_logout_is_post(self):
+        failed = self.client.post(reverse('login'), {'username': self.inspector.username, 'password': 'wrong-password'})
+        self.assertEqual(failed.status_code, 200)
+        self.assertNotIn('_auth_user_id', self.client.session)
+        success = self.client.post(reverse('login'), {'username': self.inspector.username, 'password': 'test-password'})
+        self.assertEqual(success.status_code, 302)
+        self.assertEqual(self.client.session['_auth_user_id'], str(self.inspector.pk))
+        self.assertEqual(self.client.get(reverse('logout')).status_code, 405)
+        self.assertEqual(self.client.post(reverse('logout')).status_code, 302)
+        self.assertNotIn('_auth_user_id', self.client.session)
+
     def test_all_workspaces_render_for_both_roles(self):
         visit = self.visit()
         for actor in [self.inspector, self.admin]:

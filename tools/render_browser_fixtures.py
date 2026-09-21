@@ -53,7 +53,13 @@ def main():
 <style>body{font:16px Arial;background:#dce3e8;margin:16px}header{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}select,button{font:inherit;padding:8px}iframe{display:block;border:0;height:1100px;background:white}label{display:flex;align-items:center;gap:8px}</style>
 <header><label>Page <select id="page">''' + links + '''</select></label><label>Viewport <select id="width"><option>360</option><option>390</option><option>768</option><option selected>1280</option></select></label><button id="apply">Show</button></header>
 <iframe id="preview" title="Application preview" src="inspector-dashboard.html" width="1280"></iframe>
-<script>document.getElementById('apply').onclick=()=>{const f=document.getElementById('preview');f.width=document.getElementById('width').value;f.src=document.getElementById('page').value;};</script></html>'''
+<script>
+const params=new URLSearchParams(location.search), page=document.getElementById('page'), width=document.getElementById('width'), preview=document.getElementById('preview');
+if([...page.options].some(o=>o.value===params.get('page'))) page.value=params.get('page');
+if([...width.options].some(o=>o.value===params.get('width'))) width.value=params.get('width');
+preview.width=width.value; preview.src=page.value;
+document.getElementById('apply').onclick=()=>{location.search=new URLSearchParams({page:page.value,width:width.value});};
+</script></html>'''
     (destination / 'index.html').write_text(html)
     print(f'Rendered {len(pages)} real Django response fixtures for layout QA.')
 
